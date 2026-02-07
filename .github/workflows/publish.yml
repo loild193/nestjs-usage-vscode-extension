@@ -43,21 +43,53 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Bump version (Stable - Patch)
+      - name: Bump version (Stable - Even Minor)
         if: github.ref == 'refs/heads/main'
         run: |
-          pnpm version patch --no-git-tag-version
-          VERSION=$(node -p "require('./package.json').version")
-          echo "NEW_VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Bumped to stable version: $VERSION"
+          # Get current version
+          CURRENT=$(node -p "require('./package.json').version")
+          MAJOR=$(echo $CURRENT | cut -d. -f1)
+          MINOR=$(echo $CURRENT | cut -d. -f2)
+          PATCH=$(echo $CURRENT | cut -d. -f3)
+          
+          # Ensure minor is even for stable releases
+          if [ $((MINOR % 2)) -ne 0 ]; then
+            # If current minor is odd (pre-release), bump to next even
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            # If already even, just bump patch
+            PATCH=$((PATCH + 1))
+          fi
+          
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          npm version $NEW_VERSION --no-git-tag-version
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+          echo "Bumped to stable version: $NEW_VERSION"
 
-      - name: Bump version (Pre-release)
+      - name: Bump version (Pre-release - Odd Minor)
         if: github.ref == 'refs/heads/develop'
         run: |
-          pnpm version prerelease --preid=beta --no-git-tag-version
-          VERSION=$(node -p "require('./package.json').version")
-          echo "NEW_VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Bumped to pre-release version: $VERSION"
+          # Get current version
+          CURRENT=$(node -p "require('./package.json').version")
+          MAJOR=$(echo $CURRENT | cut -d. -f1)
+          MINOR=$(echo $CURRENT | cut -d. -f2)
+          PATCH=$(echo $CURRENT | cut -d. -f3)
+          
+          # Ensure minor is odd for pre-releases
+          if [ $((MINOR % 2)) -eq 0 ]; then
+            # If current minor is even (stable), bump to next odd
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            # If already odd, just bump patch
+            PATCH=$((PATCH + 1))
+          fi
+          
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          npm version $NEW_VERSION --no-git-tag-version
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+          echo "Bumped to pre-release version: $NEW_VERSION"
 
       - name: Commit version bump
         run: |
