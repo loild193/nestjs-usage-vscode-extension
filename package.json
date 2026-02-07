@@ -1,92 +1,94 @@
 {
-  "name": "nestjs-usage-extension",
-  "displayName": "NestJS Usage Finder",
-  "description": "Display usages and definitions of functions/objects on hover, scoped to NestJS module context",
-  "version": "0.4.0",
-  "icon": "images/nestjs.png",
-  "publisher": "loild193",
-  "engines": {
-    "vscode": "^1.85.0"
-  },
-  "categories": [
-    "Programming Languages",
-    "Other"
-  ],
-  "keywords": [
-    "nestjs",
-    "typescript",
-    "usages",
-    "definitions",
-    "navigation"
-  ],
-  "activationEvents": [
-    "onLanguage:typescript"
-  ],
-  "main": "./dist/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "nestjs-usage.showAllUsages",
-        "title": "NestJS: Show All Usages"
-      }
+    "name": "nestjs-usage-extension",
+    "displayName": "NestJS Usage Finder",
+    "description": "Display usages and definitions of functions/objects on hover, scoped to NestJS module context",
+    "version": "0.4.0",
+    "icon": "images/nestjs.png",
+    "publisher": "loild193",
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Other"
     ],
-    "configuration": {
-      "title": "NestJS Usage Finder",
-      "properties": {
-        "nestjsUsage.maxInlineUsages": {
-          "type": "number",
-          "default": 5,
-          "description": "Maximum number of usages to show inline in hover"
-        },
-        "nestjsUsage.enableModuleScoping": {
-          "type": "boolean",
-          "default": true,
-          "description": "Limit usages to the same NestJS module scope"
-        },
-        "nestjsUsage.cacheSize": {
-          "type": "number",
-          "default": 100,
-          "description": "Maximum number of cached analysis results"
+    "keywords": [
+        "nestjs",
+        "typescript",
+        "usages",
+        "definitions",
+        "navigation"
+    ],
+    "activationEvents": [
+        "onLanguage:typescript"
+    ],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "nestjs-usage.showAllUsages",
+                "title": "NestJS: Show All Usages"
+            }
+        ],
+        "configuration": {
+            "title": "NestJS Usage Finder",
+            "properties": {
+                "nestjsUsage.maxInlineUsages": {
+                    "type": "number",
+                    "default": 5,
+                    "description": "Maximum number of usages to show inline in hover"
+                },
+                "nestjsUsage.enableModuleScoping": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Limit usages to the same NestJS module scope"
+                },
+                "nestjsUsage.cacheSize": {
+                    "type": "number",
+                    "default": 100,
+                    "description": "Maximum number of cached analysis results"
+                }
+            }
         }
-      }
-    }
-  },
-  "scripts": {
-    "lint": "eslint src --ext ts",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "publish": "vsce publish",
-    "compile": "pnpm run check-types && node esbuild.js",
-    "check-types": "tsc --noEmit",
-    "watch": "pnpm run check-types && node esbuild.js --watch",
-    "vscode:prepublish": "pnpm run package",
-    "package": "pnpm run check-types && node esbuild.js --production"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@vscode/vsce-sign",
-      "esbuild",
-      "keytar"
-    ]
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.0",
-    "@types/vscode": "^1.85.0",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
-    "@vscode/test-electron": "^2.3.8",
-    "@vscode/vsce": "^2.22.0",
-    "esbuild": "^0.27.3",
-    "eslint": "^8.56.0",
-    "typescript": "^5.3.3",
-    "vitest": "^1.2.0"
-  },
-  "dependencies": {
-    "typescript": "^5.3.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/loild193/nestjs-usage-vscode-extension.git"
-  },
-  "license": "MIT"
+    },
+    "scripts": {
+        "lint": "eslint src --ext ts",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "publish": "vsce publish",
+        "compile": "pnpm run check-types && node esbuild.js",
+        "check-types": "tsc --noEmit",
+        "watch": "pnpm run check-types && node esbuild.js --watch",
+        "vscode:prepublish": "pnpm run package",
+        "package": "pnpm run check-types && node esbuild.js --production",
+        "format": "prettier --write \"src/**/*.ts\""
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "@vscode/vsce-sign",
+            "esbuild",
+            "keytar"
+        ]
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.0",
+        "@types/vscode": "^1.85.0",
+        "@typescript-eslint/eslint-plugin": "^6.19.0",
+        "@typescript-eslint/parser": "^6.19.0",
+        "@vscode/test-electron": "^2.3.8",
+        "@vscode/vsce": "^2.22.0",
+        "esbuild": "^0.27.3",
+        "eslint": "^8.56.0",
+        "prettier": "^3.8.1",
+        "typescript": "^5.3.3",
+        "vitest": "^1.2.0"
+    },
+    "dependencies": {
+        "typescript": "^5.3.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/loild193/nestjs-usage-vscode-extension.git"
+    },
+    "license": "MIT"
 }
