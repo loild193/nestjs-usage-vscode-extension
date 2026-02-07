@@ -51,7 +51,7 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "pnpm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "lint": "eslint src --ext ts",
@@ -59,6 +59,13 @@
     "test:watch": "vitest",
     "package": "vsce package",
     "publish": "vsce publish"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@vscode/vsce-sign",
+      "esbuild",
+      "keytar"
+    ]
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
