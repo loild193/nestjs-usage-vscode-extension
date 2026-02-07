@@ -49,18 +49,18 @@ jobs:
 
       - name: Publish to VS Code Marketplace (Stable)
         if: github.ref == 'refs/heads/main'
-        run: pnpm exec vsce publish --pat ${{ secrets.VSCE_PAT }}
+        run: pnpm exec vsce publish --no-dependencies --pat ${{ secrets.VSCE_PAT }}
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Publish to VS Code Marketplace (Pre-release)
         if: github.ref == 'refs/heads/develop'
-        run: pnpm exec vsce publish --pre-release --pat ${{ secrets.VSCE_PAT }}
+        run: pnpm exec vsce publish --no-dependencies --pre-release --pat ${{ secrets.VSCE_PAT }}
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Package extension
-        run: pnpm exec vsce package --out nestjs-usage-extension.vsix
+        run: pnpm exec vsce package --no-dependencies --out nestjs-usage-extension.vsix
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4

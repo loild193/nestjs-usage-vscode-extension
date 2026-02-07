@@ -41,7 +41,7 @@ jobs:
         run: pnpm test
 
       - name: Package extension
-        run: pnpm exec vsce package --out nestjs-usage-extension.vsix
+        run: pnpm exec vsce package --no-dependencies --out nestjs-usage-extension.vsix
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
