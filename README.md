@@ -127,7 +127,7 @@ src/
 ### Prerequisites
 
 - Node.js 20 LTS
-- npm 10+
+- pnpm 9+
 
 ### Setup
 
@@ -137,10 +137,10 @@ git clone https://github.com/your-org/nestjs-usage-extension.git
 cd nestjs-usage-extension
 
 # Install dependencies
-npm install
+pnpm install
 
 # Compile
-npm run compile
+pnpm run compile
 
 # Run extension in development mode
 # Press F5 in VS Code to launch Extension Development Host
@@ -150,20 +150,20 @@ npm run compile
 
 | Script | Description |
 |--------|-------------|
-| `npm run compile` | Compile TypeScript to JavaScript |
-| `npm run watch` | Watch mode for development |
-| `npm run lint` | Run ESLint |
-| `npm test` | Run unit tests |
-| `npm run package` | Package extension as VSIX |
+| `pnpm run compile` | Compile TypeScript to JavaScript |
+| `pnpm run watch` | Watch mode for development |
+| `pnpm run lint` | Run ESLint |
+| `pnpm test` | Run unit tests |
+| `pnpm run package` | Package extension as VSIX |
 
 ### Testing
 
 ```bash
 # Run all tests
-npm test
+pnpm test
 
 # Run tests in watch mode
-npm run test:watch
+pnpm run test:watch
 ```
 
 ### Debug

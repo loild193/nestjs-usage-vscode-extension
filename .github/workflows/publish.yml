@@ -18,19 +18,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Compile
-        run: npm run compile
+        run: pnpm run compile
 
       - name: Run tests
-        run: npm test
+        run: pnpm test
 
       - name: Determine version type
         id: version
@@ -45,18 +49,18 @@ jobs:
 
       - name: Publish to VS Code Marketplace (Stable)
         if: github.ref == 'refs/heads/main'
-        run: npx vsce publish --pat ${{ secrets.VSCE_PAT }}
+        run: pnpm exec vsce publish --pat ${{ secrets.VSCE_PAT }}
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Publish to VS Code Marketplace (Pre-release)
         if: github.ref == 'refs/heads/develop'
-        run: npx vsce publish --pre-release --pat ${{ secrets.VSCE_PAT }}
+        run: pnpm exec vsce publish --pre-release --pat ${{ secrets.VSCE_PAT }}
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Package extension
-        run: npx vsce package --out nestjs-usage-extension.vsix
+        run: pnpm exec vsce package --out nestjs-usage-extension.vsix
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4

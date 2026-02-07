@@ -22,22 +22,26 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Compile
-        run: npm run compile
+        run: pnpm run compile
 
       - name: Run tests
-        run: npm test
+        run: pnpm test
 
       - name: Package extension
-        run: npx vsce package --out nestjs-usage-extension.vsix
+        run: pnpm exec vsce package --out nestjs-usage-extension.vsix
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
