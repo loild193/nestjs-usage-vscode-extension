@@ -2,7 +2,7 @@
     "name": "nestjs-usage-extension",
     "displayName": "NestJS Usage Finder",
     "description": "Display usages and definitions of functions/objects on hover, scoped to NestJS module context",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "icon": "images/nestjs.png",
     "publisher": "loild193",
     "engines": {
