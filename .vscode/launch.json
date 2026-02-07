@@ -21,7 +21,7 @@
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"     // ← add if you use dist folder
             ],
-            "preLaunchTask": "npm: watch"           // ← very important!
+            "preLaunchTask": "pnpm: watch"           // ← very important!
         }
     ]
 }

@@ -1,11 +1,12 @@
 # NestJS Usage Finder
 
-[![CI](https://github.com/your-org/nestjs-usage-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/nestjs-usage-extension/actions/workflows/ci.yml)
-[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/nestjs-tools.nestjs-usage-extension)](https://marketplace.visualstudio.com/items?itemName=nestjs-tools.nestjs-usage-extension)
+[![CI](https://github.com/loild193/nestjs-usage-vscode-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/loild193/nestjs-usage-vscode-extension/actions/workflows/ci.yml)
+[![Publish Extension](https://github.com/loild193/nestjs-usage-vscode-extension/actions/workflows/publish.yml/badge.svg)](https://github.com/loild193/nestjs-usage-vscode-extension/actions/workflows/publish.yml)
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/loild193.nestjs-usage-extension)](https://marketplace.visualstudio.com/items?itemName=loild193.nestjs-usage-extension)
 
 A VS Code extension that displays usages and definitions of functions, classes, and objects on hover — **scoped to NestJS module context**. Inspired by JetBrains IntelliJ's usage finder.
 
-![Demo](./docs/demo.gif)
+![Demo](./images/demo.gif)
 
 ## Features
 
