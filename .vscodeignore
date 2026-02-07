@@ -10,3 +10,4 @@ vitest.config.ts
 **/*.test.ts
 **/*.map
 *.vsix
+vsc-extension-quickstart.md
