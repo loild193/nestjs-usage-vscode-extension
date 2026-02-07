@@ -9,6 +9,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push version bumps and tags
     
     steps:
       - name: Checkout repository
@@ -36,16 +38,37 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-      - name: Determine version type
-        id: version
+      - name: Configure Git
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            echo "prerelease=false" >> $GITHUB_OUTPUT
-            echo "Publishing stable release..."
-          else
-            echo "prerelease=true" >> $GITHUB_OUTPUT
-            echo "Publishing pre-release..."
-          fi
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version (Stable - Patch)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          pnpm version patch --no-git-tag-version
+          VERSION=$(node -p "require('./package.json').version")
+          echo "NEW_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Bumped to stable version: $VERSION"
+
+      - name: Bump version (Pre-release)
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          pnpm version prerelease --preid=beta --no-git-tag-version
+          VERSION=$(node -p "require('./package.json').version")
+          echo "NEW_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Bumped to pre-release version: $VERSION"
+
+      - name: Commit version bump
+        run: |
+          git add package.json
+          git commit -m "chore: bump version to ${{ env.NEW_VERSION }} [skip ci]"
+          git tag "v${{ env.NEW_VERSION }}"
+
+      - name: Push changes and tags
+        run: |
+          git push origin ${{ github.ref_name }}
+          git push origin "v${{ env.NEW_VERSION }}"
 
       - name: Publish to VS Code Marketplace (Stable)
         if: github.ref == 'refs/heads/main'
