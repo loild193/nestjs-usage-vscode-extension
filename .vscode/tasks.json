@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "npm: watch",
+      "label": "pnpm: watch",
       "type": "npm",
       "script": "watch",
       "group": "build",

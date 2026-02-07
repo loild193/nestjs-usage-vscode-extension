@@ -3,6 +3,7 @@
   "displayName": "NestJS Usage Finder",
   "description": "Display usages and definitions of functions/objects on hover, scoped to NestJS module context",
   "version": "0.3.0",
+  "icon": "images/nestjs-icon.png",
   "publisher": "loild193",
   "engines": {
     "vscode": "^1.85.0"
@@ -51,14 +52,15 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
     "lint": "eslint src --ext ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "package": "vsce package --no-dependencies",
-    "publish": "vsce publish"
+    "publish": "vsce publish",
+    "compile": "pnpm run check-types && node esbuild.js",
+    "check-types": "tsc --noEmit",
+    "watch": "pnpm run check-types && node esbuild.js --watch",
+    "vscode:prepublish": "pnpm run package",
+    "package": "pnpm run check-types && node esbuild.js --production"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -74,6 +76,7 @@
     "@typescript-eslint/parser": "^6.19.0",
     "@vscode/test-electron": "^2.3.8",
     "@vscode/vsce": "^2.22.0",
+    "esbuild": "^0.27.3",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3",
     "vitest": "^1.2.0"
